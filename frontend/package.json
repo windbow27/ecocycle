@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "fastapi-dev": "pip3 install -r requirements.txt && python -m uvicorn api.index:app --reload",
+    "fastapi-dev": "pip install -r ../backend/requirements.txt && cd ../backend && python -m uvicorn main:app --reload",
     "nuxt-dev": "nuxt dev",
     "dev": "concurrently \"npm run nuxt-dev\" \"npm run fastapi-dev\"",
     "generate": "nuxt generate",
@@ -23,6 +23,7 @@
     "@formkit/auto-animate": "^0.8.2",
     "@pinia/nuxt": "^0.5.2",
     "concurrently": "^8.2.2",
+    "ecocycle": "file:",
     "nuxtjs-fastapi": "file:",
     "pinia": "^2.2.0",
     "pinia-plugin-persistedstate": "^3.2.1"
