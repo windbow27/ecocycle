@@ -6,9 +6,17 @@ import numpy as np
 from typing import Optional
 from ultralytics import YOLO
 from ultralytics.utils.plotting import Annotator, colors
+import os
 
 # Initialize the models
-model_sample_model = YOLO("yolov8/best.pt")
+# Get the current directory of the script
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Use a relative path to the model file
+model_path = os.path.join(current_dir, 'best.pt')
+
+# Initialize the model with the relative path
+model_sample_model = YOLO(model_path)
 
 def get_image_from_bytes(binary_image: bytes) -> Image:
     """Convert image from bytes to PIL RGB format"""
