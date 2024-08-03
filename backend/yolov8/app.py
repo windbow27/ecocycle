@@ -1,3 +1,4 @@
+
 from PIL import Image
 import io
 import pandas as pd
@@ -7,7 +8,7 @@ from ultralytics import YOLO
 from ultralytics.utils.plotting import Annotator, colors
 
 # Initialize the models
-model_sample_model = YOLO("C:/Users/Admin/Desktop/ecocycle/backend/yolov8/best.pt")
+model_sample_model = YOLO("yolov8/best.pt")
 
 def get_image_from_bytes(binary_image: bytes) -> Image:
     """Convert image from bytes to PIL RGB format"""
