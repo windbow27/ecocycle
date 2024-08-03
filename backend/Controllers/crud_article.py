@@ -15,7 +15,7 @@ from sqlalchemy import func, asc, desc
 from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
 from sqlalchemy import and_, or_
 from sqlalchemy.sql import func
-
+from Controllers import crud_comment, crud_like
 def show_article(db: Session, post_id: int):
     text = (
         db.query(
@@ -76,7 +76,7 @@ def delete_article(db: Session, post_id: int, user_id: int):
         db.rollback()  # Đảm bảo rollback nếu có lỗi xảy ra
         return f"An error occurred: {str(e)}"
     
-def edit_article(db: Session, post_id: int, user_id:int, category:str | None = None, post_title: str | None = None, post_text: str | None = None, url_cover: str | None = None):
+def update_article(db: Session, post_id: int, user_id:int, category:str | None = None, post_title: str | None = None, post_text: str | None = None, url_cover: str | None = None):
     try:
         # Kiểm tra xem bài viết có tồn tại không
         post = db.query(models.Post).filter(models.Post.post_id == post_id).one()
@@ -116,3 +116,41 @@ def edit_article(db: Session, post_id: int, user_id:int, category:str | None = N
     except Exception as e:
         db.rollback()
         return f"An error occurred: {str(e)}"    
+    
+    
+def show_all_articles_by_category(db: Session, category: str):
+    
+    query = (
+        db.query(
+            models.Post.post_id,
+            models.Post.post_title,
+            func.substr(models.Post.post_text, 1, 255).label('post_text'),
+            models.Post.cover_url,
+            models.Post.created_at,
+            models.Category.category
+        )
+        .join(models.Post_Category, models.Post_Category.post_id == models.Post.post_id)
+        .join(models.Category, models.Category.id == models.Post_Category.category_id)
+        .filter(models.Category.category == category)
+        .group_by(models.Post.post_id)
+        .order_by(desc(models.Post.created_at))
+    ).all()
+
+    return query,crud_comment.count_comments,crud_like.total_likes  # Optional, if you need the results for further processing
+
+
+
+def show_all_articles_by_keyword(db: Session, keyword: str):
+    query_articles = (
+        db.query(
+            models.Post.post_id,
+            models.Post.post_title, 
+            func.substr(models.Post.post_text, 1, 255).label('post_text'),
+            models.Post.cover_url, 
+            models.Post.created_at,
+            )        
+        .filter(models.Post.post_title.ilike(f'%{keyword}%'))
+        .group_by(models.Post.post_id)
+        .order_by(desc(models.Post.created_at))
+    ).all()
+    return query_articles  # Optional, if you need the results for further processing

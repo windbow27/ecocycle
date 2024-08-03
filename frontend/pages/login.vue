@@ -47,7 +47,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import { useUserStore } from '@/stores/user';
 
 const identifier = ref('');
@@ -57,23 +56,34 @@ const router = useRouter();
 
 const userStore = useUserStore();
 
-const onSubmit = () => {
-    if (identifier.value === 'admin' && password.value === 'admin') {
+const onSubmit = async () => {
+    const { data, error } = await useFetch('/account/login', {
+        method: 'GET',
+        params: {
+            identifier: identifier.value,
+            password: password.value
+        },
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (error.value) {
+        showWrongCredentialsError.value = true;
+        return;
+    }
+
+    if (data.value.isAdmin) {
         userStore.login();
         userStore.makeAdmin();
         showWrongCredentialsError.value = false;
         router.push('/admin');
+    } else if (data.value.isUser) {
+        userStore.login();
+        showWrongCredentialsError.value = false;
+        router.push('/');
     } else {
-        if (identifier.value === 'user' && password.value === 'user') {
-            userStore.login();
-            showWrongCredentialsError.value = false;
-            router.push('/');
-        } else {
-            showWrongCredentialsError.value = true;
-        }
+        showWrongCredentialsError.value = true;
     }
-
 };
 </script>
-
-<style scoped></style>
