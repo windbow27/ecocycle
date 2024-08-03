@@ -27,6 +27,10 @@ def login_account(username: str, password: str):
 def login_with_token(token: str):
     return account.login_with_token(db,token)
 
+@app.post("/account/logout")
+def logout_account(token: str):
+    return account.logout_account(db,token)
+
 @app.get("/article/show_article")
 def show_article(post_id: int):
     return crud_article.show_article(db,post_id)
