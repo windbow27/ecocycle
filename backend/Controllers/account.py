@@ -30,7 +30,19 @@ def login_account(db: Session, username: str, password: str):
     
 # Log in with token
 def login_with_token(db: Session, token: str):
+    query = (
+        db.query(models.Blacklist_Token)
+        .filter(models.Blacklist_Token.token == token)
+    ).first()
+
+    if query is not None:
+        return {"status": "error", "message": "Token is blacklisted"}
+    
     return get_token(token)
 
 def logout_account(db: Session, token: str):    
+    new_token = models.Blacklist_Token(token=token)
+    db.add(new_token)
+    db.commit()
+    
     return {"status": "success", "message": "Logged out"}

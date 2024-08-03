@@ -18,7 +18,7 @@ def generate_token(userid: Union[int, Any], username: Union[str, Any]) -> str:
 def get_token(token: str):
     try:
         decoded = jwt.decode(token, SECRET_KEY, algorithms=[SECURITY_ALGORITHM])
-        return decoded
+        return {"status": "success", "message": "Token is valid", "userid": decoded["userid"], "username": decoded["username"]}
     except jwt.ExpiredSignatureError:
         return {"status": "error", "message": "Token expired"}
     except jwt.InvalidTokenError:

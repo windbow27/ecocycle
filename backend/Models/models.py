@@ -23,6 +23,7 @@ Post = Base.classes.post
 Post_Like = Base.classes.post_like
 Category = Base.classes.category
 Post_Category = Base.classes.post_category
+Blacklist_Token = Base.classes.blacklist_token
 
 Session = sessionmaker(bind=engine)
 session = Session()
