@@ -33,12 +33,20 @@ def login_with_token(token: str):
 @app.post("/account/logout")
 def logout_account(token: str):
     return account.logout_account(db,token)
+#search
+@app.get("/search/articles_by_category/{category}")
+def show_all_articles_by_category(category: str):
+    return crud_article.show_all_articles_by_category(db,category)
+@app.get("/search/articles_by_keyword/{keyword}")
+def show_all_articles_by_keyword(keyword: str):
+    return crud_article.show_all_articles_by_keyword(db,keyword)
 
+#article
 @app.get("/article/show_article")
 def show_article(post_id: int):
     return crud_article.show_article(db,post_id)
 
-@app.put("/article/add_article")
+@app.post("/article/add_article")
 def add_article(user_created: int, metal: bool, paper: bool, glass: bool, plastic: bool, cardboard: bool, battery:bool, post_title: str, post_text: str, url_cover: str):
     categories = []
     if metal:
@@ -55,15 +63,15 @@ def add_article(user_created: int, metal: bool, paper: bool, glass: bool, plasti
         categories.append("battery")
 
     return crud_article.add_article(db,user_created,categories,post_title,post_text,url_cover)
-
 @app.delete("/article/delete_article")
 def delete_article(post_id: int, user_id: int):
     return crud_article.delete_article(db,post_id,user_id)
 
 @app.put("/article/update_article")
-def update_article(post_id: int, user_id: int, post_title: str, post_text: str, url_cover: str):
-    return crud_article.update_article(db,post_id,user_id,post_title,post_text,url_cover)
+def edit_article(post_id: int, user_id:int, category:str | None = None, post_title: str | None = None, post_text: str | None = None, url_cover: str | None = None):
+    return crud_article.update_article(db,post_id, user_id, category, post_title, post_text,url_cover) 
 
+#comment
 @app.get("/article/comment/show_comments")
 def show_comments(post_id: int):
     return crud_comment.show_comments(db,post_id)
@@ -84,6 +92,7 @@ def delete_comment(comment_id: int, user_id: int):
 def update_comment(comment_id: int, user_id: int, comment_text: str):
     return crud_comment.update_comment(db,comment_id,user_id,comment_text)
 
+#like
 @app.get("/article/like/total_likes")
 def total_likes(post_id: int):
     return crud_like.total_likes(db,post_id)

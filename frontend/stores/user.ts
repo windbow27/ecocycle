@@ -15,6 +15,9 @@ export const useUserStore = defineStore('user', {
         makeAdmin() {
             this.isAdmin = true;
         },
+        revokeAdmin() {
+            this.isAdmin = false;
+        },
     },
     persist: true,
 });

@@ -46,34 +46,37 @@
     </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
+<script setup lang="ts">
+import type { User } from '~/types/user';
 import { useUserStore } from '@/stores/user';
 
 const identifier = ref('');
 const password = ref('');
 const showWrongCredentialsError = ref(false);
-const router = useRouter();
 
+const user = ref<User | null>(null);
 const userStore = useUserStore();
 
-const onSubmit = () => {
-    if (identifier.value === 'admin' && password.value === 'admin') {
-        userStore.login();
-        userStore.makeAdmin();
-        showWrongCredentialsError.value = false;
-        router.push('/admin');
-    } else {
-        if (identifier.value === 'user' && password.value === 'user') {
-            userStore.login();
+const onSubmit = async () => {
+    const { data } = await useFetch('account/login?username=' + identifier.value + '&password=' + password.value);
+    user.value = data.value as User;
+
+    if (user.value.status === "error") {
+        showWrongCredentialsError.value = true;
+        setTimeout(() => {
             showWrongCredentialsError.value = false;
-            router.push('/');
+        }, 3000);
+    } else {
+        userStore.login()
+        if (user.value.isAdmin === 1) {
+            userStore.makeAdmin();
         } else {
-            showWrongCredentialsError.value = true;
+            userStore.revokeAdmin();
         }
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 500);
     }
 
 };
 </script>
-
-<style scoped></style>
