@@ -1,2 +1,13 @@
 .env
 .vscode/
+backend/__pycache__/main.cpython-310.pyc
+backend/__pycache__/main.cpython-310.pyc
+backend/__pycache__/main.cpython-310.pyc
+backend/Controllers/__pycache__/account.cpython-310.pyc
+backend/Controllers/__pycache__/crud_article.cpython-310.pyc
+backend/Controllers/__pycache__/crud_comment.cpython-310.pyc
+backend/Controllers/__pycache__/crud_like.cpython-310.pyc
+backend/Middleware/__pycache__/like.cpython-310.pyc
+backend/Middleware/__pycache__/token.cpython-310.pyc
+backend/Models/__pycache__/connect_db.cpython-310.pyc
+backend/Models/__pycache__/models.cpython-310.pyc

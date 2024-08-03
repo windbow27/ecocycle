@@ -55,22 +55,22 @@ const redirectToArticle = () => {
 const like = ref(0);
 const comment = ref(0);
 
-const fetchLike = async () => {
-    const { data } = await useFetch(`/article/like/total_likes?post_id=${props.id}`);
-    like.value = data.value.total_likes;
-    console.log(like.value);
-};
+// const fetchLike = async () => {
+//     const { data } = await useFetch(`/article/like/total_likes?post_id=${props.id}`);
+//     like.value = data.value.total_likes;
+//     console.log(like.value);
+// };
 
-const fetchComment = async () => {
-    const { data } = await useFetch(`/article/comment/count_comments?post_id=${props.id}`);
-    comment.value = data.value.total_comments;
-    console.log(comment.value);
-};
+// const fetchComment = async () => {
+//     const { data } = await useFetch(`/article/comment/count_comments?post_id=${props.id}`);
+//     comment.value = data.value.total_comments;
+//     console.log(comment.value);
+// };
 
-watchEffect(() => {
-    fetchLike();
-    fetchComment();
-});
+// watchEffect(() => {
+//     fetchLike();
+//     fetchComment();
+// });
 
 </script>
 

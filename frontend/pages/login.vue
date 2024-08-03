@@ -46,44 +46,37 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { User } from '~/types/user';
 import { useUserStore } from '@/stores/user';
 
 const identifier = ref('');
 const password = ref('');
 const showWrongCredentialsError = ref(false);
-const router = useRouter();
 
+const user = ref<User | null>(null);
 const userStore = useUserStore();
 
 const onSubmit = async () => {
-    const { data, error } = await useFetch('/account/login', {
-        method: 'GET',
-        params: {
-            identifier: identifier.value,
-            password: password.value
-        },
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
+    const { data } = await useFetch('account/login?username=' + identifier.value + '&password=' + password.value);
+    user.value = data.value as User;
 
-    if (error.value) {
+    if (user.value.status === "error") {
         showWrongCredentialsError.value = true;
-        return;
-    }
-
-    if (data.value.isAdmin) {
-        userStore.login();
-        userStore.makeAdmin();
-        showWrongCredentialsError.value = false;
-        router.push('/admin');
-    } else if (data.value.isUser) {
-        userStore.login();
-        showWrongCredentialsError.value = false;
-        router.push('/');
+        setTimeout(() => {
+            showWrongCredentialsError.value = false;
+        }, 3000);
     } else {
-        showWrongCredentialsError.value = true;
+        userStore.login()
+        if (user.value.isAdmin === 1) {
+            userStore.makeAdmin();
+        } else {
+            userStore.revokeAdmin();
+        }
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 500);
     }
+
 };
 </script>
