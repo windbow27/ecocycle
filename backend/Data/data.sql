@@ -137,7 +137,61 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,1,'Future of Technology','<div><span style=\"color: rgb(48, 48, 48); font-family: Lato, sans-serif; font-size: 18px;\">The digital revolution has already changed how people live, work, and communicate. And it’s only just getting started. But the same technologies that have the potential to help billions of people live happier, healthier, and more productive lives are also creating new challenges for citizens and governments around the world. From election meddling to data breaches and cyberattacks, recent events have shown that technology is changing how we think about privacy, national security, and maybe even democracy itself. In this project, we examine challenges in five key areas that will shape the future of the digital age: justice system, impact on democracy, global security and international conflict, the impact of automations and AI on the jobs marketplace, identity, and privacy. </span><span style=\"font-weight: 600; color: rgb(48, 48, 48); font-family: Lato, sans-serif; font-size: 18px;\">Explore provocative and through-provoking topics on how technology impacts our lives</span><br></div><div><br><br><div class=\"videoEmbed\" style=\"position:relative;height:0;padding-bottom:56.25%\"><iframe src=\"https://www.youtube-nocookie.com/embed/8YmLJ6lSzMk?ecver=2\" width=\"640\" height=\"360\" frameborder=\"0\" style=\"position:absolute;width:100%;height:100%;left:0\" webkitallowfullscreen=\"\" mozallowfullscreen=\"\" allowfullscreen=\"\"></iframe></div><br><br><br></div><div><span style=\"font-weight: 600; color: rgb(48, 48, 48); font-family: Lato, sans-serif; font-size: 18px;\"><br><br></span></div>','COVER-64ba9e879b0c83.79174008.jpg','2023-07-21 18:04:39'),(2,2,'How to Recycle Paper at Home','Paper recycling is an easy way to contribute to environmental conservation.','COVER-64ba9e879b0c83.79174002.jpg','2023-07-21 19:01:00'),(3,3,'Benefits of Metal Recycling','Recycling metals conserves natural resources and energy.','COVER-64ba9e879b0c83.79174003.jpg','2023-07-21 19:02:00'),(4,4,'Dealing with Electronic Waste','Proper disposal and recycling of e-waste is crucial for environmental health.','COVER-64ba9e879b0c83.79174004.jpg','2023-07-21 19:03:00'),(5,5,'Composting Organic Waste','Organic waste can be composted to create valuable fertilizer for gardens.','COVER-64ba9e879b0c83.79174005.jpg','2023-07-21 19:04:00'),(6,6,'Recycling Old Clothes','Textile recycling helps reduce landfill waste and promotes sustainability.','COVER-64ba9e879b0c83.79174006.jpg','2023-07-21 19:05:00'),(7,7,'Innovations in Plastic Recycling','New technologies are making plastic recycling more efficient.','COVER-64ba9e879b0c83.79174007.jpg','2023-07-21 19:06:00'),(8,8,'Advanced Techniques for Paper Recycling','Learn about the latest methods in paper recycling.','COVER-64ba9e879b0c83.79174008.jpg','2023-07-21 19:07:00'),(9,9,'Economic Benefits of Metal Recycling','Metal recycling can be profitable as well as environmentally friendly.','COVER-64ba9e879b0c83.79174009.jpg','2023-07-21 19:08:00'),(10,10,'Managing E-Waste in Urban Areas','Strategies for effective e-waste management in cities.','COVER-64ba9e879b0c83.79174010.jpg','2023-07-21 19:09:00'),(11,11,'Home Composting Tips','Simple tips for starting composting at home.','COVER-64ba9e879b0c83.79174011.jpg','2023-07-21 19:10:00'),(12,12,'Sustainable Fashion: Textile Recycling','How textile recycling contributes to sustainable fashion.','COVER-64ba9e879b0c83.79174012.jpg','2023-07-21 19:11:00'),(13,1,'The Importance of Plastic Recycling','Recycling plastic helps reduce waste and save resources.','COVER-64ba9e879b0c83.79174001.jpg','2023-07-21 19:00:00');
+INSERT INTO `post`(user_created, post_title, post_text, cover_url) VALUES (11, 'Cách để làm Lọ thủy tinh phát sáng', 'Bạn có muốn sở hữu một chiếc lọ lấp lánh phép màu không? Bài viết này sẽ hướng dẫn bạn cách để tự làm ra những chiếc lọ thủy tinh lung linh bằng những nguyên vật liệu dễ kiếm, và chỉ cần có một chút trí tưởng tượng, chiếc lọ của bạn sẽ trông như đang chứa những cô tiên tí hon trong đó vậy.
+
+Bước 1: Hãy tiến hành làm lọ thủy tinh phát sáng vào buổi tối. Bạn sẽ cần dùng tới một số que phát sáng để thực hiện. Các loại que phát sáng chỉ có thể sáng trong một khoảng thời gian ngắn, vì thế, bạn nên làm việc này vào buổi tối. Như vậy, bạn sẽ không phí phạm khoảng thời gian phát sáng ngắn ngủi của chúng.
+
+Bước 2: 
+Tìm một chiếc lọ phù hợp. Bạn có thể dùng lọ to hoặc nhỏ tùy thích, nhưng lọ càng nhỏ thì càng sáng hơn. Chất dạ quang sẽ phân tán thưa thớt hơn đối với những chiếc lọ to, và vì thế, có thể bạn sẽ phải dùng tới nhiều que phát sáng hơn. Bạn cũng có thể sử dụng một chiếc lọ có hình bóng đèn với nút bấc.
+Bạn có thể dùng lọ Mason đã được nhuộm màu. Hoặc bạn có thể tự nhuộm màu cho chiếc lọ của mình bằng cách hòa keo dán gỗ trong suốt với một vài giọt màu thực phẩm, sau đó dùng hỗn hợp này để sơn lên chiếc lọ.
+https://www.wikihow.com/images/thumb/7/79/Make-Fairies-in-a-Jar-Step-2-Version-10.jpg/v4-728px-Make-Fairies-in-a-Jar-Step-2-Version-10.jpg.webp
+
+Bước 3:
+Mua một ít que phát sáng. Bất kỳ loại que phát sáng nào cũng được, nhưng loại có độ dài khoảng 15 cm sẽ có độ sáng tốt hơn so với loại dùng làm vòng tay và vòng cổ – những loại đó phát sáng khá ngắn. Số lượng que phát sáng bạn cần mua sẽ phụ thuộc vào kích cỡ của chiếc lọ. Lọ càng to thì bạn càng cần tới nhiều que phát sáng hơn.
++ Bạn sẽ cần tới hai hoặc ba que phát sáng, tùy vào kích cỡ của chiếc lọ. Ví dụ: một chiếc lọ có dung tích khoảng 0,5 lít sẽ cần hai tới ba que phát sáng dài 15 cm.[1]
++ Hãy mua loại que có khả năng phát sáng lâu. Phần lớn các loại que phát sáng chỉ có thể dạ quang từ 2 tới 3 tiếng, nhưng cũng có những loại kéo dài tới 4 hoặc 6 tiếng. Tuy nhiên, một số loại có thể phát sáng tới 12 tiếng. Thông tin trên bao bì sẽ cho bạn biết loại que phát sáng đó có khả năng sáng trong bao lâu. Que phát sáng càng lâu thì bạn càng có nhiều thời gian để thưởng thức vẻ đẹp của chiếc lọ thủy tinh.
++ Hãy mua que phát sáng có nhiều màu sắc khác nhau. Hầu hết các loại que phát sáng sẽ có các màu cơ bản như đỏ, hồng, cam, vàng, xanh lá, xanh dương, tím và trắng. Bạn có thể tạo ra nhiều màu sắc mới lạ bằng cách kết hợp nhiều màu sắc với nhau. Ví dụ: bạn có thể trộn màu xanh dương với xanh lá để được màu xanh cổ vịt.
+https://www.wikihow.com/images/thumb/6/67/Make-Fairies-in-a-Jar-Step-3-Version-10.jpg/v4-728px-Make-Fairies-in-a-Jar-Step-3-Version-10.jpg.webp
+
+Bước 4:
+Làm cho chiếc que phát sáng. Cầm que bằng hai tay và bẻ cong tới khi bạn nghe thấy tiếng “rắc”. Động tác này sẽ làm vỡ ống thủy tinh bên trong và giải phóng các hóa chất khiến chiếc que phát sáng.
+https://www.wikihow.com/images_en/thumb/4/4a/Make-Fairies-in-a-Jar-Step-4-Version-10.jpg/550px-nowatermark-Make-Fairies-in-a-Jar-Step-4-Version-10.jpg.webp
+
+Bước 5:
+Cầm chiếc que trên miệng lọ thủy tinh và cắt một đầu. Bạn có thể dùng dao rọc giấy hoặc kéo. Que phát sáng không độc, nhưng hóa chất của nó có thể khiến da bạn bị kích ứng. Hãy mang găng tay cao su khi thực hiện việc này.
++ Nếu trẻ em làm bước này, phải có người lớn giám sát.
++ Đặt một chiếc rây nhỏ có mắt khít lên miệng lọ. Nó sẽ giữ lại những mảnh thủy tinh nhỏ trong chiếc que phát sáng. Đừng dùng lại chiếc rây này để nấu ăn hay làm bánh sau khi hoàn thành bước này.
+https://www.wikihow.com/images_en/thumb/f/f1/Make-Fairies-in-a-Jar-Step-5-Version-10.jpg/550px-nowatermark-Make-Fairies-in-a-Jar-Step-5-Version-10.jpg.webp
+
+Bước 6:
+Đổ chất lỏng vào trong lọ. Dốc ngược chiếc que phát sáng và đổ chất lỏng của nó vào trong lọ. Có thể bạn sẽ phải vẩy chiếc que một chút để chất lỏng chảy ra hết.
+Nếu có mảnh thủy tinh nào rơi vào trong lọ, bạn có thể lấy chúng ra bằng cách dùng dĩa nhựa hoặc thìa nhựa. Vứt chiếc dĩa hoặc chiếc thìa đó đi, đừng dùng nó để xúc đồ ăn.
+https://www.wikihow.com/images_en/thumb/3/3e/Make-Fairies-in-a-Jar-Step-6-Version-10.jpg/550px-nowatermark-Make-Fairies-in-a-Jar-Step-6-Version-10.jpg.webp
+
+Bước 7:
+Rắc vào đó một chút kim tuyến. Bạn có thể dùng bất kỳ loại kim tuyến nào bạn thích, nhưng loại kim tuyến óng ánh sẽ khiến chiếc lọ của bạn trông đẹp hơn do nó có khả năng phản chiếu ánh sáng. Lượng kim tuyến cần dùng sẽ phụ thuộc vào kích cỡ của chiếc lọ và ý thích của bạn. Ví dụ: để khiến một chiếc lọ có dung tích 0,5 lít trở nên bắt mắt, bạn sẽ cần tới khoảng 32 gr kim tuyến loại mịn.
++ Bạn có thể dùng loại kim tuyến có hình bông hoa, trái tim và ngôi sao[2]
++ Bạn có thể trộn giữa kim tuyến loại mịn với kim tuyến cỡ to hơn với những màu sắc khác nhau để có hiệu ứng bắt mắt hơn.
+https://www.wikihow.com/images_en/thumb/8/8d/Make-Fairies-in-a-Jar-Step-7-Version-9.jpg/550px-nowatermark-Make-Fairies-in-a-Jar-Step-7-Version-9.jpg.webp
+
+Bước 8:
+Hãy cho vào lọ một thứ gì đó. Chất lỏng trong que phát sáng sẽ khiến kim tuyến bị dính vào thành lọ, nhưng bạn có thể khiến kim tuyến trông như đang bay lơ lửng trong đó bằng cách bỏ vào đó một miếng vải voan hoặc vải màn trắng.[4] Bạn cũng có thể dùng giấy bóng kính. Chỉ cần cắt một miếng giấy hoặc vải mà bạn thích, vo nhẹ nó lại và bỏ vào trong lọ. Nó cần phải đủ lớn để đặt vừa xinh vào trong chiếc lọ mà không chiếm hết không gian trong đó.
+https://www.wikihow.com/images_en/thumb/8/81/Make-Fairies-in-a-Jar-Step-8-Version-5.jpg/550px-nowatermark-Make-Fairies-in-a-Jar-Step-8-Version-5.jpg.webp
+
+Bước 9:
+Đóng nắp lại thật chặt và lắc chiếc lọ. Hãy lắc sao cho chất lỏng dạ quang và kim tuyển phủ hết bên trong thành lọ.
+https://www.wikihow.com/images_en/thumb/a/ad/Make-Fairies-in-a-Jar-Step-9-Version-8.jpg/550px-nowatermark-Make-Fairies-in-a-Jar-Step-9-Version-8.jpg.webp
+
+Bước 10:
+Trang trí chiếc lọ. Bạn có thể khiến chiếc lọ của mình trở nên xinh đẹp hơn bằng cách trang trí nắp lọ bằng kim tuyến hoặc phủ một miếng vải đẹp lên đó. Hãy xem phần hướng dẫn trang trí nắp lọ trong bài viết này để có thêm nhiều ý tưởng thú vị.
+https://www.wikihow.com/images/thumb/3/3f/Make-Fairies-in-a-Jar-Step-10-Version-5.jpg/v4-728px-Make-Fairies-in-a-Jar-Step-10-Version-5.jpg.webp
+
+Bước 11:
+Mang chiếc lọ vào một căn phòng tối. Chất lỏng của que phát sáng vẫn sẽ hoạt động lúc trời sáng, nhưng lúc trời tối, nó sẽ sáng hơn nhiều.
+https://www.wikihow.com/images/thumb/e/e8/Make-Fairies-in-a-Jar-Step-11-Version-8.jpg/v4-728px-Make-Fairies-in-a-Jar-Step-11-Version-8.jpg.webp
+
+Nguồn: https://www.wikihow.vn/L%C3%A0m-L%E1%BB%8D-th%E1%BB%A7y-tinh-Ph%C3%A1t-s%C3%A1ng.
+', 'https://www.wikihow.com/images/thumb/9/9a/Make-Fairies-in-a-Jar-Step-1-Version-7.jpg/v4-728px-Make-Fairies-in-a-Jar-Step-1-Version-7.jpg.webp');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,7 +220,7 @@ CREATE TABLE `post_category` (
 
 LOCK TABLES `post_category` WRITE;
 /*!40000 ALTER TABLE `post_category` DISABLE KEYS */;
-INSERT INTO `post_category` VALUES (1,1,1),(2,2,2),(3,3,3),(4,4,4),(5,5,5),(6,6,6),(7,7,1),(8,8,2),(9,9,3),(10,10,4),(11,11,5),(12,12,6),(13,13,1);
+INSERT INTO `post_category`(post_id, category_id) VALUES (1,3);
 /*!40000 ALTER TABLE `post_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
