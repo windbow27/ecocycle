@@ -1,0 +1,30 @@
+{
+  "name": "ecocycle",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "fastapi-dev": "pip3 install -r requirements.txt && python -m uvicorn api.index:app --reload",
+    "nuxt-dev": "nuxt dev",
+    "dev": "concurrently \"npm run nuxt-dev\" \"npm run fastapi-dev\"",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "^1.2.0",
+    "@nuxtjs/tailwindcss": "^6.12.1",
+    "daisyui": "^4.12.10",
+    "nuxt": "^3.11.2",
+    "vue": "^3.4.23",
+    "vue-router": "^4.3.2"
+  },
+  "dependencies": {
+    "@formkit/auto-animate": "^0.8.2",
+    "@pinia/nuxt": "^0.5.2",
+    "concurrently": "^8.2.2",
+    "nuxtjs-fastapi": "file:",
+    "pinia": "^2.2.0",
+    "pinia-plugin-persistedstate": "^3.2.1"
+  }
+}
