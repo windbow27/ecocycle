@@ -118,7 +118,7 @@ def update_article(db: Session, post_id: int, user_id:int, category:str | None =
         return f"An error occurred: {str(e)}"    
     
     
-def show_all_articles_by_category(db: Session, category: str):
+def show_all_articles_by_categories(db: Session, categories: list[str]):
     
     query = (
         db.query(
@@ -131,13 +131,12 @@ def show_all_articles_by_category(db: Session, category: str):
         )
         .join(models.Post_Category, models.Post_Category.post_id == models.Post.post_id)
         .join(models.Category, models.Category.id == models.Post_Category.category_id)
-        .filter(models.Category.category == category)
+        .filter(models.Category.category.in_(categories))
         .group_by(models.Post.post_id)
         .order_by(desc(models.Post.created_at))
     ).all()
 
-    return query,crud_comment.count_comments,crud_like.total_likes  # Optional, if you need the results for further processing
-
+    return query, crud_comment.count_comments, crud_like.total_likes  # Optional, if you need the results for further processing
 
 
 def show_all_articles_by_keyword(db: Session, keyword: str):
@@ -154,3 +153,40 @@ def show_all_articles_by_keyword(db: Session, keyword: str):
         .order_by(desc(models.Post.created_at))
     ).all()
     return query_articles  # Optional, if you need the results for further processing
+
+from fastapi import  HTTPException
+import requests
+
+
+# Your TextRazor API key (replace with your actual key)
+
+# Function to highlight text using TextRazor
+def highlight_text(text: str):
+    TEXTRAZOR_API_KEY = "5fd35afcd4d1244708a4f2b8a87cf6e9ab8f9fbfda204294b5a6b8f8"
+    url = "https://api.textrazor.com/"
+    headers = {
+        "x-textrazor-key": TEXTRAZOR_API_KEY
+    }
+    data = {
+        "text": text,
+        "extractors": "entities"  # You can also use "topics", "phrases", etc.
+    }
+
+    response = requests.post(url, headers=headers, data=data)
+
+    if response.status_code == 200:
+        analysis = response.json()
+        highlighted_text = text
+        if "response" in analysis and "entities" in analysis["response"]:
+            entities = analysis["response"]["entities"]
+            for entity in sorted(entities, key=lambda e: e['startingPos'], reverse=True):
+                highlighted_text = (
+                    highlighted_text[:entity["startingPos"]] +
+                    "**" + highlighted_text[entity["startingPos"]:entity["endingPos"]] + "**" +
+                    highlighted_text[entity["endingPos"]:]
+                )
+        return highlighted_text
+    else:
+        raise HTTPException(status_code=500, detail="Error processing text with TextRazor API")
+
+

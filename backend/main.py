@@ -31,9 +31,9 @@ def login_with_token(token: str):
 def logout_account(token: str):
     return account.logout_account(db,token)
 #search
-@app.get("/search/articles_by_category/{category}")
-def show_all_articles_by_category(category: str):
-    return crud_article.show_all_articles_by_category(db,category)
+@app.get("/search/articles_by_categories")
+def show_all_articles_by_categories(category: str):
+    return crud_article.show_all_articles_by_categories(db,category)
 @app.get("/search/articles_by_keyword/{keyword}")
 def show_all_articles_by_keyword(keyword: str):
     return crud_article.show_all_articles_by_keyword(db,keyword)
@@ -101,3 +101,7 @@ def add_like(post_id: int, user_id: int):
 @app.delete("/article/like/delete_like")
 def delete_like(post_id: int, user_id: int):
     return crud_like.delete_like(db,post_id,user_id)
+
+@app.get("hightlight")
+def hightlight(text:str):
+    return crud_article.hightlight(db)
