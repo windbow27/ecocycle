@@ -1,1 +1,5 @@
 .env
+/_pycache_
+/Controllers/__pycache__
+/Middlewares/__pycache__
+/Models/__pycache__
