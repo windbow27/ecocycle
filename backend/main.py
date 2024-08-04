@@ -1,9 +1,13 @@
 from Controllers import account, crud_article, crud_like, crud_comment
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from Models.connect_db import SessionLocal, engine  # Import trực tiếp từ Models
-from fastapi import FastAPI
+from Models.connect_db import SessionLocal, engine
+from fastapi import FastAPI, File, Header
 from fastapi.encoders import jsonable_encoder
+from fastapi.responses import StreamingResponse, JSONResponse
+from yolov8.app import get_bytes_from_image, get_image_from_bytes, detect_sample_model, add_bboxs_on_img
+import threading
+from typing import List
 
 app = FastAPI()
 db = SessionLocal()
@@ -101,6 +105,31 @@ def add_like(post_id: int, user_id: int):
 @app.delete("/article/like/delete_like")
 def delete_like(post_id: int, user_id: int):
     return crud_like.delete_like(db,post_id,user_id)
+
+@app.post("/img_object_detection_to_img")
+def img_object_detection_to_img(file: bytes = File(...)):
+    """
+    Object Detection from an image plot bbox on image
+
+    Args:
+        file (bytes): The image file in bytes format.
+    Returns:
+        Image: Image in bytes with bbox annotations and labels in headers.
+    """
+    input_image = get_image_from_bytes(file)
+    predict = detect_sample_model(input_image)
+    final_image = add_bboxs_on_img(image=input_image, predict=predict)
+    
+    labels = predict['name'].tolist()  # Extract labels from predictions
+    unique_labels = list(set(labels))  # Remove duplicates by converting to set and back to list
+    
+    # Create the response headers with the unique labels
+    headers = {"Detected-Labels": ", ".join(unique_labels)}
+
+    return StreamingResponse(content=get_bytes_from_image(final_image), headers=headers, media_type="image/jpeg")
+
+
+
 
 @app.get("hightlight")
 def hightlight(text:str):

@@ -56,6 +56,7 @@ const showWrongCredentialsError = ref(false);
 
 const user = ref<User | null>(null);
 const userStore = useUserStore();
+const router = useRouter();
 
 const onSubmit = async () => {
     const { data } = await useFetch('account/login?username=' + identifier.value + '&password=' + password.value);
@@ -68,13 +69,14 @@ const onSubmit = async () => {
         }, 3000);
     } else {
         userStore.login()
+        console.log(user.value.isAdmin);
         if (user.value.isAdmin === 1) {
             userStore.makeAdmin();
         } else {
             userStore.revokeAdmin();
         }
         setTimeout(() => {
-            window.location.href = '/';
+            router.push('/');
         }, 500);
     }
 
