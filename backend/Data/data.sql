@@ -59,7 +59,9 @@ INSERT INTO `users` (`id`, `fullname`, `username`, `password`, `isAdmin`) VALUES
 (11, 'Kyle Young', 'kyle', '$2y$10$5KdCaBOhNE6HZOmn39jO4OOyKUI1xC1St51KH8DhtXGX8drct98/q', 0),
 (12, 'Laura Adams', 'laura', '$2y$10$5KdCaBOhNE6HZOmn39jO4OOyKUI1xC1St51KH8DhtXGX8drct98/q', 0),
 (13, 'LA', 'A', '$2y$10$5KdCaBOhNE6HZOmn39jO4OOyKUI1xC1St51KH8DhtXGX8drct98/q', 0),
-(0, 'flash', 'admin', '$2y$10$5KdCaBOhNE6HZOmn39jO4OOyKUI1xC1St51KH8DhtXGX8drct98/q',1);
+(0, 'flash', 'admin', 'admin',1),
+(14, 'abc', 'user01', '12345678', 9);
+
 -- --------------------------------------------------------
 
 --
