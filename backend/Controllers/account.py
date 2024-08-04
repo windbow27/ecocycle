@@ -24,7 +24,8 @@ def login_account(db: Session, username: str, password: str):
         .filter(models.Users.password == password)
     ).first()
     if query is not None:
-        return {"status": "success", "message": "Login successful", "token": generate_token(query.id, username)}
+        return {"status": "success", "message": "Login successful", "token": generate_token(query.id, username),
+                "is_admin": query.isAdmin, "fullname": query.fullname}
     else:
         return {"status": "error", "message": "Login failed"}
     

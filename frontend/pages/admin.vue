@@ -2,21 +2,29 @@
     <div class="pages-wrapper background">
         <div class="flex flex-col justify-center text-center p-4 pb-8">
             <h1 class="text-3xl">Admin Panel</h1>
-            <p class="text-gray-600">{{ users.length }} users</p>
+            <!-- <p class="text-gray-600">{{ users.length }} users</p> -->
         </div>
 
-        <div class="user-list flex flex-col justify-center items-center gap-6">
-            <div v-for="user in users" :key="user.id"
-                class="user-card p-6 w-full lg:w-96 bg-white border rounded-lg shadow-md">
-                <div class="flex items-center gap-4">
+        <div class="flex flex-col justify-center items-center gap-6">
+            <div v-for="article in articles" :key="article.post_id"
+                class="article-card p-6 w-full bg-white border rounded-lg shadow-md">
+                <div class="flex gap-4">
                     <div class="avatar">
                         <div class="w-12 rounded-full">
-                            <img :src="'https://picsum.photos/1280/720?random=' + user.id" />
+                            <img :src="article.cover_url" />
                         </div>
                     </div>
                     <div>
-                        <h2 class="text-xl font-semibold">{{ user.name }}</h2>
-                        <p class="text-gray-600">Email: {{ user.email }}</p>
+                        <h2 class="text-xl font-semibold">{{ article.post_title }}</h2>
+                        <p class="text-gray-600">{{ article.post_text }}</p>
+                    </div>
+                    <div class="dropdown">
+                        <div tabindex="0" role="button" class="btn btn-ghost"> <i class="fa-solid fa-ellipsis"></i>
+                        </div>
+                        <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] p-2 shadow">
+                            <li><a>Edit</a></li>
+                            <li><a>Delete</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -25,15 +33,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import type { Article } from '~/types/article';
 
-const users = ref([
-    { id: 1, name: 'John Doe', email: 'john@example.com' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
-    { id: 3, name: 'Alice Johnson', email: 'alice@example.com' },
-    { id: 4, name: 'Bob Brown', email: 'bob@example.com' },
-    { id: 5, name: 'Charlie Davis', email: 'charlie@example.com' },
-]);
+const articles = ref<Article[]>([]);
+
+const fetchAllArticles = async () => {
+    const { data } = await useFetch('/article/show_all_articles');
+    articles.value = data.value as Article[];
+};
+
+onMounted(fetchAllArticles);
 </script>
 
 <style scoped></style>

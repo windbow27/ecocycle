@@ -118,7 +118,7 @@ def update_article(db: Session, post_id: int, user_id:int, category:str | None =
         return f"An error occurred: {str(e)}"    
     
     
-def show_all_articles_by_categories(db: Session, categories: list[str]):
+def show_all_articles_by_categories(db: Session, category:str):
     
     query = (
         db.query(
@@ -131,7 +131,7 @@ def show_all_articles_by_categories(db: Session, categories: list[str]):
         )
         .join(models.Post_Category, models.Post_Category.post_id == models.Post.post_id)
         .join(models.Category, models.Category.id == models.Post_Category.category_id)
-        .filter(models.Category.category.in_(categories))
+        .filter(models.Category.category == category)
         .group_by(models.Post.post_id)
         .order_by(desc(models.Post.created_at))
     ).all()
@@ -190,3 +190,16 @@ def highlight_text(text: str):
         raise HTTPException(status_code=500, detail="Error processing text with TextRazor API")
 
 
+def show_all_articles(db: Session):
+    query_articles = (
+        db.query(
+            models.Post.post_id,
+            models.Post.post_title, 
+            func.substr(models.Post.post_text, 1, 255).label('post_text'),
+            models.Post.cover_url, 
+            models.Post.created_at,
+            )        
+        .group_by(models.Post.post_id)
+        .order_by(desc(models.Post.created_at))
+    ).all()
+    return query_articles  # Optional, if you need the results for further processing
