@@ -5,7 +5,9 @@
             <!-- <p class="text-gray-600">{{ users.length }} users</p> -->
         </div>
 
-        <div class="flex flex-col justify-center items-center gap-6">
+        <button class="btn btn-primary text-green-200">Add Article</button>
+
+        <div class="flex flex-col justify-center items-center gap-6 mt-8">
             <div v-for="article in articles" :key="article.post_id"
                 class="article-card p-6 w-full bg-white border rounded-lg shadow-md">
                 <div class="flex gap-4">

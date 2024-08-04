@@ -77,10 +77,10 @@ const onSubmit = async () => {
         }, 500);
         } else {
             userStore.revokeAdmin();
-        }
-        setTimeout(() => {
+            setTimeout(() => {
             router.push('/');
         }, 500);
+        }
     }
 
 };
