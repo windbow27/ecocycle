@@ -9,11 +9,30 @@
                 <div class="h-16 flex rounded-lg">
                     <h2 class="card-title pl-8">{{ card.title }}</h2>
                 </div>
-                <span>{{ card.body1}}</span>
+                <span>{{ card.body1 }}</span>
                 <figure>
                     <img :src="card.imgSrc" alt="Article" />
                 </figure>
                 <span class="card-body">{{ card.body2 }}</span>
+            </div>
+        </div>
+
+        <div class="flex flex-col justify-center pb-8">
+            <h1 class="text-center text-2xl p-4 pb-8 pt-20">Add Results</h1>
+            <input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs m-auto" multiple @change="handleFileChange" />
+        </div>
+
+
+        <!-- Comment -->
+        <div class="chat chat-start" v-for="(image, index) in chatImages" :key="index">
+            <div class="chat-image avatar">
+                <div class="w-10 rounded-full">
+                    <img alt="Tailwind CSS chat bubble component"
+                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                </div>
+            </div>
+            <div class="">
+                <img :src="image">
             </div>
         </div>
     </div>
@@ -24,6 +43,7 @@ const route = useRoute();
 const articleId = computed(() => route.params.id);
 const full_text = ref('');
 const cards = ref<Card[]>([]);
+const comments = ref<Comment[]>([]);
 
 type Card = {
     title: string;
@@ -31,6 +51,7 @@ type Card = {
     body1: string;
     body2: string;
 };
+
 
 const fetchArticle = async () => {
     const { data } = await useFetch(`/article/show_article?post_id=${articleId.value}`);
@@ -64,9 +85,31 @@ const fetchArticle = async () => {
     console.log(cards.value);
 };
 
+
 onMounted(() => {
     fetchArticle();
 });
+
+watch(articleId, () => {
+    fetchArticle();
+});
+
+const chatImages = ref([]);
+
+// @ts-ignore
+const handleFileChange = (event) => {
+    const files = event.target.files;
+    if (files.length > 0) {
+        for (let i = 0; i < files.length; i++) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                // @ts-ignore
+                chatImages.value.push(e.target.result);
+            };
+            reader.readAsDataURL(files[i]);
+        }
+    }
+};
 </script>
 
 <style scoped></style>

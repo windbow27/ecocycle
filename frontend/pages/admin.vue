@@ -5,23 +5,6 @@
             <!-- <p class="text-gray-600">{{ users.length }} users</p> -->
         </div>
 
-        <!-- <div class="user-list flex flex-col justify-center items-center gap-6">
-            <div v-for="user in users" :key="user.id"
-                class="user-card p-6 w-full lg:w-96 bg-white border rounded-lg shadow-md">
-                <div class="flex items-center gap-4">
-                    <div class="avatar">
-                        <div class="w-12 rounded-full">
-                            <img :src="'https://picsum.photos/1280/720?random=' + user.id" />
-                        </div>
-                    </div>
-                    <div>
-                        <h2 class="text-xl font-semibold">{{ user.name }}</h2>
-                        <p class="text-gray-600">Email: {{ user.email }}</p>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
         <div class="flex flex-col justify-center items-center gap-6">
             <div v-for="article in articles" :key="article.post_id"
                 class="article-card p-6 w-full bg-white border rounded-lg shadow-md">
@@ -36,7 +19,8 @@
                         <p class="text-gray-600">{{ article.post_text }}</p>
                     </div>
                     <div class="dropdown">
-                        <div tabindex="0" role="button" class="btn btn-ghost"> <i class="fa-solid fa-ellipsis"></i></div>
+                        <div tabindex="0" role="button" class="btn btn-ghost"> <i class="fa-solid fa-ellipsis"></i>
+                        </div>
                         <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] p-2 shadow">
                             <li><a>Edit</a></li>
                             <li><a>Delete</a></li>

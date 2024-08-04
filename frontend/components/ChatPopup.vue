@@ -15,14 +15,17 @@
           </button>
         </div>
         <div class="p-4 h-96 overflow-y-auto">
-          <div
-            v-for="message in messages"
+        <div
+            v-for="(message, index) in messages"
             :key="message"
-            class="chat chat-start mb-2"
-          >
-            <div class="chat-bubble p-2 rounded-lg">{{ message }}</div>
-          </div>
+            :class="index % 2 === 0 ? 'chat chat-start mb-2' : 'chat chat-end mb-2'"
+        >
+        <div :class="index % 2 === 0 ? 'chat-bubble p-2 rounded-lg' : 'chat-bubble p-2 rounded-lg '">
+                {{ message }}
+                <i v-if="index % 2 !== 0" class="fas fa-robot ml-2"></i>
+            </div>
         </div>
+    </div>
         <div class="p-4 border-t border-gray-200">
           <input
             v-model="newMessage"
@@ -94,5 +97,13 @@
   const messages = computed(() => chatStore.messages);
   </script>
   
-  <style scoped></style>
+  <style scoped>
+  .chat-start {
+      justify-self: start;
+  }
+  
+  .chat-end {
+      justify-self: end;
+  }
+  </style>
   

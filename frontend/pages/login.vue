@@ -3,9 +3,9 @@
         <div class="hero-content flex-col lg:flex-row">
             <!--side panel-->
             <div class="text-center w-full max-w-xl lg:text-left">
-                <h1 class="text-5xl font-bold">Login now!</h1>
-                <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
-                    exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                <h1 class="text-5xl font-bold">Login</h1>
+                <!-- <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
+                    exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p> -->
             </div>
 
             <!--login form-->
@@ -72,6 +72,9 @@ const onSubmit = async () => {
         console.log(user.value.is_admin);
         if (user.value.is_admin === 1) {
             userStore.makeAdmin();
+            setTimeout(() => {
+            router.push('/admin');
+        }, 500);
         } else {
             userStore.revokeAdmin();
         }
