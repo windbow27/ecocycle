@@ -1120,8 +1120,14 @@ INSERT INTO `post_like` (`liked_by`, `post_id`, `liked_at`) VALUES
 (12, 9, '2023-07-21 19:34:00'),
 (13, 10, '2023-07-21 19:35:00');
 
+CREATE TABLE `blacklist_token` (
+  `token` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `expired_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 COMMIT;
 show tables;
 select * from category;
 select * from post;
+
