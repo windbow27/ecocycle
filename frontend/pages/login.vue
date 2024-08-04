@@ -46,34 +46,39 @@
     </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
+<script setup lang="ts">
+import type { User } from '~/types/user';
 import { useUserStore } from '@/stores/user';
 
 const identifier = ref('');
 const password = ref('');
 const showWrongCredentialsError = ref(false);
+
+const user = ref<User | null>(null);
+const userStore = useUserStore();
 const router = useRouter();
 
-const userStore = useUserStore();
+const onSubmit = async () => {
+    const { data } = await useFetch('account/login?username=' + identifier.value + '&password=' + password.value);
+    user.value = data.value as User;
 
-const onSubmit = () => {
-    if (identifier.value === 'admin' && password.value === 'admin') {
-        userStore.login();
-        userStore.makeAdmin();
-        showWrongCredentialsError.value = false;
-        router.push('/admin');
-    } else {
-        if (identifier.value === 'user' && password.value === 'user') {
-            userStore.login();
+    if (user.value.status === "error") {
+        showWrongCredentialsError.value = true;
+        setTimeout(() => {
             showWrongCredentialsError.value = false;
-            router.push('/');
+        }, 3000);
+    } else {
+        userStore.login()
+        console.log(user.value.isAdmin);
+        if (user.value.isAdmin === 1) {
+            userStore.makeAdmin();
         } else {
-            showWrongCredentialsError.value = true;
+            userStore.revokeAdmin();
         }
+        setTimeout(() => {
+            router.push('/');
+        }, 500);
     }
 
 };
 </script>
-
-<style scoped></style>

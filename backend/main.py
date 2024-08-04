@@ -1,9 +1,13 @@
 from Controllers import account, crud_article, crud_like, crud_comment
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from Models.connect_db import SessionLocal, engine  # Import trực tiếp từ Models
-from fastapi import FastAPI
+from Models.connect_db import SessionLocal, engine
+from fastapi import FastAPI, File, Header
 from fastapi.encoders import jsonable_encoder
+from fastapi.responses import StreamingResponse, JSONResponse
+from yolov8.app import get_bytes_from_image, get_image_from_bytes, detect_sample_model, add_bboxs_on_img
+import threading
+from typing import List
 
 app = FastAPI()
 db = SessionLocal()
@@ -30,12 +34,20 @@ def login_with_token(token: str):
 @app.post("/account/logout")
 def logout_account(token: str):
     return account.logout_account(db,token)
+#search
+@app.get("/search/articles_by_categories")
+def show_all_articles_by_categories(category: str):
+    return crud_article.show_all_articles_by_categories(db,category)
+@app.get("/search/articles_by_keyword/{keyword}")
+def show_all_articles_by_keyword(keyword: str):
+    return crud_article.show_all_articles_by_keyword(db,keyword)
 
+#article
 @app.get("/article/show_article")
 def show_article(post_id: int):
     return crud_article.show_article(db,post_id)
 
-@app.put("/article/add_article")
+@app.post("/article/add_article")
 def add_article(user_created: int, metal: bool, paper: bool, glass: bool, plastic: bool, cardboard: bool, battery:bool, post_title: str, post_text: str, url_cover: str):
     categories = []
     if metal:
@@ -52,15 +64,15 @@ def add_article(user_created: int, metal: bool, paper: bool, glass: bool, plasti
         categories.append("battery")
 
     return crud_article.add_article(db,user_created,categories,post_title,post_text,url_cover)
-
 @app.delete("/article/delete_article")
 def delete_article(post_id: int, user_id: int):
     return crud_article.delete_article(db,post_id,user_id)
 
 @app.put("/article/update_article")
-def update_article(post_id: int, user_id: int, post_title: str, post_text: str, url_cover: str):
-    return crud_article.update_article(db,post_id,user_id,post_title,post_text,url_cover)
+def edit_article(post_id: int, user_id:int, category:str | None = None, post_title: str | None = None, post_text: str | None = None, url_cover: str | None = None):
+    return crud_article.update_article(db,post_id, user_id, category, post_title, post_text,url_cover) 
 
+#comment
 @app.get("/article/comment/show_comments")
 def show_comments(post_id: int):
     return crud_comment.show_comments(db,post_id)
@@ -81,6 +93,7 @@ def delete_comment(comment_id: int, user_id: int):
 def update_comment(comment_id: int, user_id: int, comment_text: str):
     return crud_comment.update_comment(db,comment_id,user_id,comment_text)
 
+#like
 @app.get("/article/like/total_likes")
 def total_likes(post_id: int):
     return crud_like.total_likes(db,post_id)
@@ -92,3 +105,32 @@ def add_like(post_id: int, user_id: int):
 @app.delete("/article/like/delete_like")
 def delete_like(post_id: int, user_id: int):
     return crud_like.delete_like(db,post_id,user_id)
+
+@app.post("/img_object_detection_to_img")
+def img_object_detection_to_img(file: bytes = File(...)):
+    """
+    Object Detection from an image plot bbox on image
+
+    Args:
+        file (bytes): The image file in bytes format.
+    Returns:
+        Image: Image in bytes with bbox annotations and labels in headers.
+    """
+    input_image = get_image_from_bytes(file)
+    predict = detect_sample_model(input_image)
+    final_image = add_bboxs_on_img(image=input_image, predict=predict)
+    
+    labels = predict['name'].tolist()  # Extract labels from predictions
+    unique_labels = list(set(labels))  # Remove duplicates by converting to set and back to list
+    
+    # Create the response headers with the unique labels
+    headers = {"Detected-Labels": ", ".join(unique_labels)}
+
+    return StreamingResponse(content=get_bytes_from_image(final_image), headers=headers, media_type="image/jpeg")
+
+
+
+
+@app.get("hightlight")
+def hightlight(text:str):
+    return crud_article.hightlight(db)
