@@ -78,13 +78,7 @@ const videoRef = ref(null);
 const canvasRef = ref(null);
 
 onMounted(async () => {
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-        if (videoRef.value) {
-            (videoRef.value as HTMLVideoElement).srcObject = stream;
-            (videoRef.value as HTMLVideoElement).play();
-        }
-    }
+    
 });
 
 const capture = () => {
@@ -115,12 +109,31 @@ const capture = () => {
         });
 };
 
-const openModal = () => {
+const openModal = async () => {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        if (videoRef.value) {
+            (videoRef.value as HTMLVideoElement).srcObject = stream;
+            (videoRef.value as HTMLVideoElement).play();
+        }
+    }
     // @ts-ignore
     modalRef.value.showModal();
 };
 
+
 const closeModal = () => {
+    if (videoRef.value) {
+        const stream = (videoRef.value as HTMLVideoElement).srcObject as MediaStream;
+        const tracks = stream.getTracks();
+
+        tracks.forEach((track) => {
+            track.stop();
+        });
+
+        (videoRef.value as HTMLVideoElement).srcObject = null;
+    }
+
     // @ts-ignore
     modalRef.value.close();
 };
