@@ -26,6 +26,9 @@ export default defineNuxtConfig({
     '/article/**': {
       proxy: "http://127.0.0.1:8000/article/**",
     },
+    '/img_object_detection_to_img/**': {
+      proxy: "http://127.0.0.1:8000/img_object_detection_to_img/**",
+    }
   },
   
   modules: ["@nuxtjs/tailwindcss", '@formkit/auto-animate/nuxt', '@pinia/nuxt'],
