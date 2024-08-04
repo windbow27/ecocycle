@@ -1,11 +1,8 @@
-<script setup lang="ts">
-</script>
-
 <template>
-    <NuxtLoadingIndicator/>
-    <AppHeader/>
-    <ChatPopup />
-    <NuxtPage/>
+  <NuxtLoadingIndicator />
+  <AppHeader />
+  <ChatPopup />
+  <NuxtPage />
 </template>
 
 <style>

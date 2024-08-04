@@ -73,6 +73,7 @@ def process_query(query):
 
 @app.route('/api/search', methods=['POST'])
 def handle_query():
+
     data = list(request.get_json())
 
     query = data[-1]["parts"][0]["text"]
@@ -115,11 +116,10 @@ def handle_query():
         response = llm.generate_content(data)
 
     # print('====data', data)
-    
     return jsonify({
         'parts': [
             {
-            'text': response.text,
+                'text': response.text
             }
         ],
         'role': 'model'

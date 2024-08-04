@@ -105,3 +105,9 @@ class RAG():
     def _to_markdown(text):
         text = text.replace('•', '  *')
         return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
+    
+    def get_image(self, query):
+        get_knowledge = self.vector_search(query, 1)
+        if get_knowledge:
+            return get_knowledge[0].get('cover_url')
+        return None

@@ -23,6 +23,7 @@
     "@formkit/auto-animate": "^0.8.2",
     "@pinia/nuxt": "^0.5.2",
     "concurrently": "^8.2.2",
+    "cors": "^2.8.5",
     "ecocycle": "file:",
     "nuxtjs-fastapi": "file:",
     "pinia": "^2.2.0",
