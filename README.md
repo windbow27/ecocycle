@@ -6,7 +6,7 @@
 ### About
 - An Environment Web App focused on recylcing trash built with Nuxt and FastApi.
 
-Features
+### Features
 Garbage Classification: Identify and categorize different types of waste to streamline the recycling process.
 Garbage Detection: Use advanced models to detect trash and provide actionable insights for effective waste management.
 Garbage Recycling: Access resources and information to aid in the recycling of identified waste.
