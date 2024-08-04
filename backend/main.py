@@ -2,14 +2,21 @@ from Controllers import account, crud_article, crud_like, crud_comment
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from Models.connect_db import SessionLocal, engine
-from fastapi import FastAPI, File, Header
+from fastapi import FastAPI, File, Header, UploadFile
+from fastapi.staticfiles import StaticFiles
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import StreamingResponse, JSONResponse
 from yolov8.app import get_bytes_from_image, get_image_from_bytes, detect_sample_model, add_bboxs_on_img
 import threading
 from typing import List
+import os
+import shutil
+import cv2
+from ultralytics import YOLO
+from io import BytesIO
 
 app = FastAPI()
+model = YOLO(r"D:\Workspace\ecocycle\backend\yolov8\best.pt")
 db = SessionLocal()
 
 app.add_middleware(
@@ -109,28 +116,45 @@ def add_like(post_id: int, user_id: int):
 def delete_like(post_id: int, user_id: int):
     return crud_like.delete_like(db,post_id,user_id)
 
+UPLOAD_DIRECTORY = "uploaded_images"
+if not os.path.exists(UPLOAD_DIRECTORY):
+    os.makedirs(UPLOAD_DIRECTORY)
+
+app.mount("/uploaded_images", StaticFiles(directory=UPLOAD_DIRECTORY), name="uploaded_images")
+
 @app.post("/img_object_detection_to_img")
-def img_object_detection_to_img(file: bytes = File(...)):
-    """
-    Object Detection from an image plot bbox on image
-
-    Args:
-        file (bytes): The image file in bytes format.
-    Returns:
-        Image: Image in bytes with bbox annotations and labels in headers.
-    """
-    input_image = get_image_from_bytes(file)
-    predict = detect_sample_model(input_image)
-    final_image = add_bboxs_on_img(image=input_image, predict=predict)
+async def upload_image(file: UploadFile = File(...)):
+    file_path = os.path.join(UPLOAD_DIRECTORY, file.filename)
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
     
-    labels = predict['name'].tolist()  # Extract labels from predictions
-    unique_labels = list(set(labels))  # Remove duplicates by converting to set and back to list
+    # Read the uploaded image
+    frame = cv2.imread(file_path)
+    if frame is None:
+        raise HTTPException(status_code=400, detail="Invalid image file")
+
+    # Detect objects
+    result = model.predict(frame, device='cpu')
     
-    # Create the response headers with the unique labels
-    headers = {"Detected-Labels": ", ".join(unique_labels)}
+    # Extract labels from predictions
+    labels = []
+    for cls in result[0].boxes.cls:
+        label = model.names[int(cls)]
+        if label:  # Check if the label is valid
+            labels.append(label)
+    
+    # Draw bounding boxes on the image and plot the results
+    frame_result = result[0].plot()
+    cv2.imwrite(file_path, frame_result)
 
-    return StreamingResponse(content=get_bytes_from_image(final_image), headers=headers, media_type="image/jpeg")
-
+    # Convert image to bytes
+    _, img_encoded = cv2.imencode('.jpg', frame_result)
+    img_bytes = BytesIO(img_encoded.tobytes())
+    
+    # Create response with headers containing the detected label (only one label)
+    detected_label = labels[0] if labels else "No Label"
+    headers = {"Detected-Labels": detected_label}
+    return StreamingResponse(content=img_bytes, headers=headers, media_type="image/jpeg")
 
 
 

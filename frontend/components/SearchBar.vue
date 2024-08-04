@@ -77,10 +77,6 @@ const handleImageInput = async (event: Event) => {
 const videoRef = ref(null);
 const canvasRef = ref(null);
 
-onMounted(async () => {
-    
-});
-
 const capture = () => {
     if (!videoRef.value || !canvasRef.value) {
         return;

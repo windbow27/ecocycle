@@ -79,11 +79,11 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `category`) VALUES
-(1, 'Kim loại'),
-(2, 'Giấy'),
-(3, 'Thủy tinh'),
-(4, 'Nhựa'),
-(5, 'Bìa các tông'),
+(1, 'Metal'),
+(2, 'Paper'),
+(3, 'Glass'),
+(4, 'Plastic'),
+(5, 'Cardboard'),
 (6,'other');
 -- --------------------------------------------------------
 
@@ -1129,5 +1129,7 @@ CREATE TABLE `blacklist_token` (
 COMMIT;
 show tables;
 select * from category;
+
+
 select * from post;
 
