@@ -1,7 +1,7 @@
 <template>
     <div class="card md:card-side shadow-xl w-full lg:w-[70%] 2xl:w-[40%] m-4 group">
         <figure>
-            <img class="h-56 w-full 2xl:w-72 object-cover" :src="image" :alt="title" />
+            <img class="w-full object-cover" :src="image" :alt="title" />
         </figure>
         <div class="card-body">
             <h2 class="card-title"> {{ title }} </h2>
@@ -40,7 +40,7 @@ const props = defineProps({
         type: String,
         required: true
     },
-    createdAt: {
+    created_at: {
         type: String,
         required: true
     }

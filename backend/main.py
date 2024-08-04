@@ -43,6 +43,9 @@ def show_all_articles_by_keyword(keyword: str):
     return crud_article.show_all_articles_by_keyword(db,keyword)
 
 #article
+@app.get("/article/show_all_articles")
+def show_all_articles():
+    return crud_article.show_all_articles(db)
 @app.get("/article/show_article")
 def show_article(post_id: int):
     return crud_article.show_article(db,post_id)

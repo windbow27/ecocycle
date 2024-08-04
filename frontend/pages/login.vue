@@ -69,8 +69,8 @@ const onSubmit = async () => {
         }, 3000);
     } else {
         userStore.login()
-        console.log(user.value.isAdmin);
-        if (user.value.isAdmin === 1) {
+        console.log(user.value.is_admin);
+        if (user.value.is_admin === 1) {
             userStore.makeAdmin();
         } else {
             userStore.revokeAdmin();

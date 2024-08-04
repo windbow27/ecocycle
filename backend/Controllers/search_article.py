@@ -14,6 +14,7 @@ from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
 from sqlalchemy import and_, or_
 from sqlalchemy.sql import func,case
 import sys
+import crud_comment,crud_like
 
 def show_all_articles_by_category(db: Session, category: str):
     query = (
@@ -32,7 +33,7 @@ def show_all_articles_by_category(db: Session, category: str):
         .order_by(desc(models.Post.created_at))
     ).all()
 
-    return query,comment.total_comments,like.total_likes  # Optional, if you need the results for further processing
+    return query,crud_comment.count_comments,crud_like.total_likes  # Optional, if you need the results for further processing
 
 
 
